@@ -12,6 +12,24 @@ import UIKit
 extension UdacityClient {
     
     /**
+    Logout
+    
+    :param: completionHandler
+    */
+    func logout(completionHandler: (success: Bool, errorString: String?) -> Void) {
+
+        taskForDELETEMethod(UdacityClient.Methods.Session) {
+            result, error in 
+
+            if let error = error {
+                completionHandler(success: false, errorString: "Logout Failed")
+            } else {
+                completionHandler(success: true, errorString: nil)
+            }
+        }
+    }
+
+    /**
     Authenticate with Udacity Client
     
     :param: username          The username entered in textfield
@@ -25,12 +43,13 @@ extension UdacityClient {
             
             if success {
                 self.sessionID = sessionID
+                self.userID =
             }
             completionHandler(success: success, errorString: errorString)
         }
     }
     
-    func getSessionID(username: String, password: String, completionHandler:(success: Bool, sessionID: String?, errorString: String?) -> Void) {
+    func getSession(username: String, password: String, completionHandler:(success: Bool, sessionID: String?, errorString: String?) -> Void) {
         
         // Set the jsonBody
         var jsonBody = [
@@ -47,8 +66,6 @@ extension UdacityClient {
                 completionHandler(success: false, sessionID: nil, errorString: "Login Failed")
                 
             } else {
-                
-                println(result)
                 
                 if let session = result.valueForKey(UdacityClient.JSONResponseKeys.Session) as? [String: String] {
                     

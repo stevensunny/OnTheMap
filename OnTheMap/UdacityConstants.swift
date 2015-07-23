@@ -12,6 +12,7 @@ extension UdacityClient {
     
     struct Constants {
         static let BaseURLSecure: String = "https://www.udacity.com/api/"
+        static let SignUpURL: String = "https://www.udacity.com/account/auth#!/signup"
     }
     
     struct Methods {
@@ -40,9 +41,18 @@ extension UdacityClient {
         static let SessionID = "id"
         static let SessionExpiry = "expiry"
         
+        // Login Response - Account
+        static let Account = "account"
+        static let AccountKey = "key"
+        
         // General
         static let Error = "error"
         static let Status = "status"
+
+        // User data
+        static let User = "user"
+        static let FirstName = "first_name"
+        static let LastName = "last_name"
         
     }
     
