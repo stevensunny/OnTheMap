@@ -130,6 +130,7 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
         // Set cell default
         let item = studentLocations[indexPath.row]
         cell.textLabel!.text = "\(item.firstName!) \(item.lastName!)"
+        cell.detailTextLabel!.text = "\(item.mediaURL!)"
         
         return cell
     }
@@ -141,7 +142,7 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let item = studentLocations[indexPath.row]
         
-        let url: NSURL = NSURL(string: item.mediaURL!)!
+        let url: NSURL = self.buildCorrectUrl(item.mediaURL!)
         UIApplication.sharedApplication().openURL(url)
     }
     
@@ -186,6 +187,23 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
                 }
             }
         }
+    }
+    
+    /**
+    Build correct URL by appending URL schema (http://) if the string doesn't have one
+    
+    :param: urlString
+    
+    :returns: NSURL
+    */
+    func buildCorrectUrl( urlString: String ) -> NSURL {
+        
+        if urlString.lowercaseString.rangeOfString("http") != nil {
+            return NSURL(string: urlString)!
+        } else {
+            return NSURL(string: "http://\(urlString)")!
+        }
+        
     }
 
 }

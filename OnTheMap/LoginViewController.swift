@@ -15,7 +15,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var passwordTextfield: UITextField!
     @IBOutlet weak var loginButton: BorderedButton!
-    @IBOutlet weak var signUpWithFacebookButton: BorderedButton!
     @IBOutlet weak var signUpButton: UIButton!
     
     var backgroundGradient: CAGradientLayer? = nil
@@ -51,7 +50,6 @@ class LoginViewController: UIViewController {
         self.setDefaultTextfieldStyle(passwordTextfield)
         
         self.setDefaultBorderedButtonStyle(loginButton, mainColor: UIColor(red: 1.0, green: 0.333, blue: 0.0, alpha: 1.0), highlightColor: UIColor(red: 0.902, green: 0.235, blue: 0.0, alpha:1.0))
-        self.setDefaultBorderedButtonStyle(signUpWithFacebookButton, mainColor: UIColor(red: 0.286, green: 0.416, blue: 0.800, alpha: 1.0), highlightColor: UIColor(red: 0.188, green: 0.318, blue: 0.612, alpha: 1.0))
         
         // Configure sign up button
         signUpButton.titleLabel?.font = UIFont(name:"AvenirNext-Medium", size: 17.0)

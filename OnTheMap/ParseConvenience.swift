@@ -48,6 +48,45 @@ extension ParseClient {
 		}
 	}
     
+    /**
+    Check Parse for existing record of StudentLocation of the current user and get the objectId if it exists.
+    
+    :param: uniqueKey
+    :param: completionHandler
+    */
+    func getMyLocationObjectId( uniqueKey: String, completionHandler: (success: Bool, objectId: String?, error: NSError? ) -> Void ) {
+        
+        let parameters = [
+            "where": "{\"uniqueKey\":\"\(uniqueKey)\"}"
+        ]
+        
+        taskForGETMethod( Methods.StudentLocation, parameters: parameters) { (result, error) -> Void in
+            
+            if let error = error {
+                
+                completionHandler(success: false, objectId: nil, error: error)
+                
+            } else {
+                
+                if let results = result.valueForKey( ParseClient.JSONResponseKey.Wrapper ) as? [[String: AnyObject]] {
+                    
+                    // Success, return the student locations array
+                    var locations = StudentLocation.studentLocationsFromResult( results )
+                    completionHandler( success: true, objectId: locations[0].objectId, error: nil )
+                    
+                } else {
+                    
+                    // Error parsing,
+                    completionHandler(success: false, objectId: nil, error: NSError(domain: "getMyLocationObjectId parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse getMyLocationObjectId"] ))
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
 	/**
     Post Student Location to Parse API
 
@@ -56,33 +95,47 @@ extension ParseClient {
     */
 	func postStudentLocation( studentLocation: StudentLocation, completionHandler: (success: Bool, error: NSError? ) -> Void ) {
 
-        let jsonBody = [
-            "uniqueKey": studentLocation.uniqueKey,
-            "firstName": studentLocation.firstName!,
-            "lastName": studentLocation.lastName!,
-            "mapString": studentLocation.mapString!,
-            "mediaURL": studentLocation.mediaURL!,
-            "latitude": studentLocation.latitude!,
-            "longitude": studentLocation.longitude!
-        ]
-
-		taskForPOSTMethod( Methods.StudentLocation, jsonBody: jsonBody as! [String : AnyObject]) { (result, error) -> Void in
+        self.getMyLocationObjectId( studentLocation.uniqueKey, completionHandler: { (success, objectId, error) -> Void in
             
-            if let error = error {
-                
-                completionHandler(success: false, error: error)
-                
-            } else {
-                
-                if let createdAt = result.valueForKey(ParseClient.JSONResponseKey.CreatedAt) as? String {
-                	completionHandler(success: true, error: nil)	
-                } else {
-                	completionHandler(success: false, error: NSError(domain: "postStudentLocation parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse postStudentLocation"]))
-                }
+            var jsonBody: [String: AnyObject] = [
+                "uniqueKey": studentLocation.uniqueKey,
+                "firstName": studentLocation.firstName!,
+                "lastName": studentLocation.lastName!,
+                "mapString": studentLocation.mapString!,
+                "mediaURL": studentLocation.mediaURL!,
+                "latitude": studentLocation.latitude!,
+                "longitude": studentLocation.longitude!
+            ]
             
+            var httpMethod: String = "POST"
+            var mutableMethod = Methods.StudentLocation
+            
+            if let objectId = objectId {
+                httpMethod = "PUT"
+                mutableMethod = "\(mutableMethod)/\(objectId)"
             }
-        }
+            
+            self.taskForMethod( httpMethod: httpMethod, method: mutableMethod, jsonBody: jsonBody ) { (result, error) -> Void in
+                
+                if let error = error {
+                    
+                    completionHandler(success: false, error: error)
+                    
+                } else {
+                    
+                    if let createdAt = result.valueForKey(ParseClient.JSONResponseKey.CreatedAt) as? String {
+                        completionHandler(success: true, error: nil)
+                    } else if let updatedAt = result.valueForKey(ParseClient.JSONResponseKey.UpdatedAt) as? String {
+                        completionHandler(success: true, error: nil)
+                    } else {
+                        completionHandler(success: false, error: NSError(domain: "postStudentLocation parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse postStudentLocation"]))
+                    }
+                    
+                }
+            }
 
+        })
+        
 	}
 
 }

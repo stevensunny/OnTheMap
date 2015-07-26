@@ -61,14 +61,14 @@ class ParseClient: NSObject {
     :param: jsonBody
     :param: completionHandler
     */
-    func taskForPOSTMethod(method: String, jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func taskForMethod(httpMethod: String! = "POST", method: String, jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         // Build the URL and configure the request
         let urlString = Constants.BaseURLSecure + method
         let url = NSURL(string: urlString)!
         let request = NSMutableURLRequest(URL: url)
         var jsonifyError: NSError? = nil
-        request.HTTPMethod = "POST"
+        request.HTTPMethod = httpMethod
         request.addValue(Constants.ApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(Constants.ApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

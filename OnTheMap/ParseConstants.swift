@@ -36,5 +36,6 @@ extension ParseClient {
 
         // Post StudentLocation
         static let CreatedAt = "createdAt"
+        static let UpdatedAt = "updatedAt"
     }
 }

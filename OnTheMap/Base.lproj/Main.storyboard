@@ -108,9 +108,6 @@
                                 <state key="normal" title="Cancel">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="337" y="20" width="47" height="30"/>
-                                </variation>
                                 <connections>
                                     <action selector="processCancel:" destination="8bX-GX-auz" eventType="touchUpInside" id="wUt-o7-1Py"/>
                                 </connections>
@@ -132,8 +129,7 @@
                                         <exclude reference="LND-Gb-YaT"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="125" y="528" width="150" height="44"/>
+                                <variation key="widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="LND-Gb-YaT"/>
                                     </mask>
@@ -150,9 +146,6 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
-                                        <variation key="widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="82" y="25" width="236" height="20"/>
-                                        </variation>
                                         <connections>
                                             <outlet property="delegate" destination="8bX-GX-auz" id="pVV-XT-b5n"/>
                                         </connections>
@@ -275,9 +268,6 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="337" y="20" width="47" height="30"/>
-                                </variation>
                                 <connections>
                                     <action selector="processCancel:" destination="8Qv-Au-cHx" eventType="touchUpInside" id="9KQ-w9-c45"/>
                                 </connections>
@@ -301,8 +291,7 @@
                                         <exclude reference="pJY-Is-nSp"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="156" y="521" width="88" height="44"/>
+                                <variation key="widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="dqh-rj-fdo"/>
                                         <include reference="pJY-Is-nSp"/>
@@ -317,9 +306,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="96" y="55" width="209" height="20"/>
-                                </variation>
                                 <connections>
                                     <outlet property="delegate" destination="8Qv-Au-cHx" id="XOb-zd-XQB"/>
                                 </connections>
@@ -343,8 +329,7 @@
                                         <exclude reference="byz-mw-Rre"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="137" y="95" width="127" height="44"/>
+                                <variation key="widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="Qt4-sY-16a"/>
                                         <include reference="byz-mw-Rre"/>
@@ -434,7 +419,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StudentLocationViewCell" textLabel="zhx-RL-qXr" imageView="zMq-AY-fha" style="IBUITableViewCellStyleDefault" id="xFe-Gm-XHF">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StudentLocationViewCell" textLabel="zhx-RL-qXr" detailTextLabel="t7N-kX-eA1" imageView="zMq-AY-fha" style="IBUITableViewCellStyleSubtitle" id="xFe-Gm-XHF">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xFe-Gm-XHF" id="scF-kk-8wa">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -451,6 +436,15 @@
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="pin" id="zMq-AY-fha">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="t7N-kX-eA1">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="widthClass=compact">
+                                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    </variation>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -554,16 +548,6 @@
                                     <action selector="processLogin:" destination="Gaa-t2-2vV" eventType="touchUpInside" id="pMA-cm-FFv"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTG-Tm-QI9" customClass="BorderedButton" customModule="OnTheMap" customModuleProvider="target">
-                                <rect key="frame" x="175" y="536" width="250" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="8qA-4A-Ly0"/>
-                                </constraints>
-                                <state key="normal" title="Sign in with Facebook">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ac-Vw-yZR" userLabel="Sign Up">
                                 <rect key="frame" x="175" y="403" width="250" height="30"/>
                                 <constraints>
@@ -589,9 +573,9 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.5607843137254902" blue="0.035294117647058823" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="5fb-O7-u5Y" firstAttribute="top" secondItem="9Ac-Vw-yZR" secondAttribute="bottom" constant="65" id="0vt-Nr-bVh"/>
                             <constraint firstAttribute="centerX" secondItem="b6F-zb-bWZ" secondAttribute="centerX" id="1r7-HM-3e2"/>
                             <constraint firstAttribute="centerX" secondItem="5fb-O7-u5Y" secondAttribute="centerX" id="4tC-yV-okA"/>
-                            <constraint firstItem="rTG-Tm-QI9" firstAttribute="top" secondItem="5fb-O7-u5Y" secondAttribute="bottom" constant="40" id="ByL-O5-lyS"/>
                             <constraint firstItem="PPS-ov-hBh" firstAttribute="top" secondItem="pD4-Xf-hm4" secondAttribute="bottom" constant="170" id="DKm-Jr-mcu"/>
                             <constraint firstAttribute="centerX" secondItem="9Hw-So-exR" secondAttribute="centerX" id="E3e-VT-AZc"/>
                             <constraint firstItem="b6F-zb-bWZ" firstAttribute="top" secondItem="PPS-ov-hBh" secondAttribute="bottom" constant="20" id="GaD-9e-3hE"/>
@@ -599,14 +583,12 @@
                             <constraint firstAttribute="centerX" secondItem="9Ac-Vw-yZR" secondAttribute="centerX" id="Tk2-yL-4sr"/>
                             <constraint firstItem="9Ac-Vw-yZR" firstAttribute="top" secondItem="9Hw-So-exR" secondAttribute="bottom" constant="8" symbolic="YES" id="WBL-Y6-E2K"/>
                             <constraint firstItem="djY-rU-T2i" firstAttribute="top" secondItem="b6F-zb-bWZ" secondAttribute="bottom" constant="8" symbolic="YES" id="YD4-Pu-qgK"/>
-                            <constraint firstItem="HOB-t9-dFn" firstAttribute="top" secondItem="rTG-Tm-QI9" secondAttribute="bottom" constant="20" id="YWp-l4-ooZ"/>
                             <constraint firstItem="PPS-ov-hBh" firstAttribute="top" secondItem="tyF-r7-l7v" secondAttribute="bottom" constant="20" id="c4v-7f-daU"/>
                             <constraint firstItem="9Hw-So-exR" firstAttribute="top" secondItem="djY-rU-T2i" secondAttribute="bottom" constant="8" symbolic="YES" id="cSB-FU-VlM"/>
                             <constraint firstItem="djY-rU-T2i" firstAttribute="width" secondItem="b6F-zb-bWZ" secondAttribute="width" id="eHh-by-yMP"/>
-                            <constraint firstAttribute="centerX" secondItem="rTG-Tm-QI9" secondAttribute="centerX" id="mh6-GB-XOc"/>
                             <constraint firstItem="9Hw-So-exR" firstAttribute="width" secondItem="djY-rU-T2i" secondAttribute="width" id="oSo-FC-h6E"/>
                             <constraint firstItem="tyF-r7-l7v" firstAttribute="top" secondItem="pD4-Xf-hm4" secondAttribute="bottom" constant="20" id="rDp-cc-Slg"/>
-                            <constraint firstItem="9Hw-So-exR" firstAttribute="width" secondItem="rTG-Tm-QI9" secondAttribute="width" id="rxS-aS-FNu"/>
+                            <constraint firstItem="5fb-O7-u5Y" firstAttribute="top" secondItem="9Hw-So-exR" secondAttribute="bottom" constant="117" id="unc-O2-xF8"/>
                             <constraint firstAttribute="centerX" secondItem="PPS-ov-hBh" secondAttribute="centerX" id="vGU-hX-AGj"/>
                             <constraint firstAttribute="centerX" secondItem="tyF-r7-l7v" secondAttribute="centerX" id="yKI-WX-kYy"/>
                             <constraint firstAttribute="centerX" secondItem="djY-rU-T2i" secondAttribute="centerX" id="z1I-TC-0Hw"/>
@@ -619,6 +601,8 @@
                                 <exclude reference="rDp-cc-Slg"/>
                                 <exclude reference="yKI-WX-kYy"/>
                                 <exclude reference="c4v-7f-daU"/>
+                                <exclude reference="0vt-Nr-bVh"/>
+                                <exclude reference="unc-O2-xF8"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -629,6 +613,8 @@
                                 <include reference="rDp-cc-Slg"/>
                                 <include reference="yKI-WX-kYy"/>
                                 <include reference="c4v-7f-daU"/>
+                                <include reference="0vt-Nr-bVh"/>
+                                <exclude reference="unc-O2-xF8"/>
                             </mask>
                         </variation>
                     </view>
@@ -638,7 +624,6 @@
                         <outlet property="loginButton" destination="9Hw-So-exR" id="lnO-e6-jRa"/>
                         <outlet property="passwordTextfield" destination="djY-rU-T2i" id="GiW-9n-env"/>
                         <outlet property="signUpButton" destination="9Ac-Vw-yZR" id="EXy-Um-xee"/>
-                        <outlet property="signUpWithFacebookButton" destination="rTG-Tm-QI9" id="nO6-69-5Nh"/>
                         <outlet property="titleLabel" destination="PPS-ov-hBh" id="hiY-OS-78I"/>
                     </connections>
                 </viewController>

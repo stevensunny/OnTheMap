@@ -59,6 +59,23 @@ class PostStudentURLViewController: UIViewController, MKMapViewDelegate, UITextF
     }
     
     /**
+    Build correct URL by appending URL schema (http://) if the string doesn't have one
+    
+    :param: urlString
+    
+    :returns: NSURL
+    */
+    func buildCorrectUrl( urlString: String ) -> NSURL {
+
+        if urlString.lowercaseString.rangeOfString("http") != nil {
+            return NSURL(string: urlString)!
+        } else {
+            return NSURL(string: "http://\(urlString)")!
+        }
+        
+    }
+    
+    /**
     Opens up alert view and display the given message
     
     :param: message
@@ -102,14 +119,9 @@ class PostStudentURLViewController: UIViewController, MKMapViewDelegate, UITextF
     
     @IBAction func processPreviewUrl(sender: UIButton) {
         
-        let url_string = self.txtUrl.text
-        var url: NSURL? = nil
-        if url_string.lowercaseString.rangeOfString("http") != nil {
-            url = NSURL(string: url_string)!
-        } else {
-            url = NSURL(string: "http://\(url_string)")!
-        }
-        UIApplication.sharedApplication().openURL(url!)
+        let urlString = self.txtUrl.text
+        
+        UIApplication.sharedApplication().openURL( self.buildCorrectUrl(urlString) )
 
     }
     
@@ -127,31 +139,35 @@ class PostStudentURLViewController: UIViewController, MKMapViewDelegate, UITextF
     :param: sender UIButton
     */
     @IBAction func processSubmitLocation(sender: UIButton) {
-        let url = txtUrl.text
+        let urlString = txtUrl.text
         
-        if url == "" {
+        if urlString == "" {
             self.displayAlert("Invalid URL", message: "Oops, you haven't entered your URL yet", actionPrompt: "OK", actionHandler: { () -> Void in
                 txtUrl.becomeFirstResponder()
             })
         } else {
             
-            myLocation.mediaURL = url
+            let url: NSURL = self.buildCorrectUrl(urlString)
+            myLocation.mediaURL = url.absoluteString
             
             ParseClient.sharedInstance().postStudentLocation(myLocation, completionHandler: { (success, error) -> Void in
                 if let error = error {
                     
-                    self.displayAlert("Post Location Failed", message: "Oops, we can't post your location at this time. Please try again in a few minutes", actionPrompt: "OK", actionHandler: nil)
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.displayAlert("Post Location Failed", message: "Oops, we can't post your location at this time. Please try again in a few minutes", actionPrompt: "OK", actionHandler: nil)
+                    })
                     
                 } else {
                     
-                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         
                         // We empty the studentLocations in the appDelegate to force the MapView to reload the studentLocations
                         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                         appDelegate.studentLocations = []
                         
                         self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-                    }
+                        
+                    })
                     
                 }
             })
