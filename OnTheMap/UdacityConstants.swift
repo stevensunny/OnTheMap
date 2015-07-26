@@ -24,6 +24,10 @@ extension UdacityClient {
         static let UsersID = "users/{id}"
     }
     
+    struct URLKeys {
+        static let UserID = "id"
+    }
+    
     struct JSONBody {
         
         // The default parameter (dictionary) wrapper name
@@ -50,7 +54,7 @@ extension UdacityClient {
         static let Status = "status"
 
         // User data
-        static let User = "user"
+        static let UserWrapper = "user"
         static let FirstName = "first_name"
         static let LastName = "last_name"
         

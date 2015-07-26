@@ -24,6 +24,46 @@ class UdacityClient: NSObject {
     
     // MARK: Request Methods
     
+    /**
+    Make a GET request to Udacity API
+    
+    :param: method
+    :param: parameters
+    :param: completionHandler
+    */
+    func taskForGETMethod(method: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+        
+        // Build URL and configure URLRequest
+        let urlString = Constants.BaseURLSecure + method
+        let url = NSURL(string: urlString)!
+        let request = NSMutableURLRequest(URL: url)
+        
+        // Make the request
+        let task = session.dataTaskWithRequest(request) {
+            data, response, downloadError in
+            
+            // Parse response
+            if let error = downloadError {
+                completionHandler(result: nil, error: error)
+            } else {
+                UdacityClient.parseJSONWithCompletionHandler( data, completionHandler: completionHandler )
+            }
+            
+        }
+        
+        // Resume task
+        task.resume()
+        
+        return task
+    }
+    
+    /**
+    Make a POST request to Udacity API
+    
+    :param: method
+    :param: jsonBody
+    :param: completionHandler
+    */
     func taskForPOSTMethod(method: String, jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         /* Build the URL and configure the request */
@@ -53,6 +93,12 @@ class UdacityClient: NSObject {
         return task
     }
     
+    /**
+    Make a DELETE request to Udacity API
+    
+    :param: method
+    :param: completionHandler
+    */
     func taskForDELETEMethod(method: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         // Build the URL and configure the Request
@@ -118,7 +164,6 @@ class UdacityClient: NSObject {
     
     :returns: String containing the parameters url
     */
-    /* Helper function: */
     class func escapedParameters(parameters: [String : AnyObject]) -> String {
         
         var urlVars = [String]()
@@ -137,6 +182,21 @@ class UdacityClient: NSObject {
         }
         
         return (!urlVars.isEmpty ? "?" : "") + join("&", urlVars)
+    }
+    
+    /**
+    Substitute the key for the value that is contained within the method name
+    
+    :param: method
+    :param: key
+    :param: value
+    */
+    class func substituteKeyInMethod(method: String, key: String, value: String) -> String? {
+        if method.rangeOfString("{\(key)}") != nil {
+            return method.stringByReplacingOccurrencesOfString("{\(key)}", withString: value)
+        } else {
+            return nil
+        }
     }
     
     // MARK: - Shared Instance

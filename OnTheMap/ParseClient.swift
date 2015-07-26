@@ -54,6 +54,13 @@ class ParseClient: NSObject {
         return task
     }
 
+    /**
+    Make a POST request to Parse API
+    
+    :param: method
+    :param: jsonBody
+    :param: completionHandler
+    */
     func taskForPOSTMethod(method: String, jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         // Build the URL and configure the request
@@ -67,11 +74,7 @@ class ParseClient: NSObject {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.HTTPBody = NSJSONSerialization.dataWithJSONObject(jsonBody, options: nil, error: &jsonifyError)
         
-        request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".dataUsingEncoding(NSUTF8StringEncoding)
-        
-        
-        
-        // 4. Make the request
+        // Make the request
         let task = session.dataTaskWithRequest(request) {data, response, downloadError in
             
             // 5/6. Parse the data and use the data (happens in completion handler)

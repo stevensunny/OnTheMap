@@ -17,8 +17,12 @@ class PostStudentLocationViewController: UIViewController, UITextFieldDelegate {
 
     var tapRecognizer: UITapGestureRecognizer? = nil
     
+    var myLocation: StudentLocation! = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        myLocation = StudentLocation(uniqueKey: UdacityClient.sharedInstance().userID!, firstName: UdacityClient.sharedInstance().firstName!, lastName: UdacityClient.sharedInstance().lastName!)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -110,6 +114,13 @@ class PostStudentLocationViewController: UIViewController, UITextFieldDelegate {
                     let postStudentUrlViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostStudentURLViewController") as! PostStudentURLViewController
                     
                     postStudentUrlViewController.placemark = MKPlacemark(placemark: placemark)
+                    
+                    // Assign the mapString, latitude and longitude to class' StudentLocation
+                    self.myLocation.mapString = "\(placemark.locality), \(placemark.administrativeArea)"
+                    self.myLocation.latitude = placemark.location.coordinate.latitude
+                    self.myLocation.longitude = placemark.location.coordinate.longitude
+                    postStudentUrlViewController.myLocation = self.myLocation!
+                    
                     self.presentViewController(postStudentUrlViewController, animated: true, completion: nil)
                     
                 } else {

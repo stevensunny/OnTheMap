@@ -47,5 +47,42 @@ extension ParseClient {
 
 		}
 	}
+    
+	/**
+    Post Student Location to Parse API
+
+    :param: studentLocation
+    :param: completionHandler
+    */
+	func postStudentLocation( studentLocation: StudentLocation, completionHandler: (success: Bool, error: NSError? ) -> Void ) {
+
+        let jsonBody = [
+            "uniqueKey": studentLocation.uniqueKey,
+            "firstName": studentLocation.firstName!,
+            "lastName": studentLocation.lastName!,
+            "mapString": studentLocation.mapString!,
+            "mediaURL": studentLocation.mediaURL!,
+            "latitude": studentLocation.latitude!,
+            "longitude": studentLocation.longitude!
+        ]
+
+		taskForPOSTMethod( Methods.StudentLocation, jsonBody: jsonBody as! [String : AnyObject]) { (result, error) -> Void in
+            
+            if let error = error {
+                
+                completionHandler(success: false, error: error)
+                
+            } else {
+                
+                if let createdAt = result.valueForKey(ParseClient.JSONResponseKey.CreatedAt) as? String {
+                	completionHandler(success: true, error: nil)	
+                } else {
+                	completionHandler(success: false, error: NSError(domain: "postStudentLocation parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse postStudentLocation"]))
+                }
+            
+            }
+        }
+
+	}
 
 }

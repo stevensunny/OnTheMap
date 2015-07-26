@@ -19,11 +19,18 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
         super.viewDidLoad()
 
         self.appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-
+        
         // Get student locations from AppDelegate
         self.studentLocations = self.appDelegate.studentLocations
+    }
 
-        // In case of studentLocations from AppDelegate is empty, this means we haven't 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Get student locations from AppDelegate
+        self.studentLocations = self.appDelegate.studentLocations
+        
+        // In case of studentLocations from AppDelegate is empty, this means we haven't
         // load the studentLocations from Parse API yet, so we call loadStudentLocations -
         // this will load the studentLocations, and reloadTableViewData to reload the table
         if self.studentLocations.count == 0 {
@@ -33,11 +40,7 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
         } else {
             self.reloadTableViewData()
         }
-
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+        
         configureUI()
     }
     

@@ -19,11 +19,14 @@ class PostStudentURLViewController: UIViewController, MKMapViewDelegate, UITextF
     var placemark: MKPlacemark? = nil
     let regionRadius: CLLocationDistance = 100000
     
+    var myLocation: StudentLocation! = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.addPlacemarkAnnotation()
         self.centerMapOnLocation(placemark!.location!)
+        
     }
     
     override func viewWillAppear( animated: Bool ) {
@@ -129,6 +132,28 @@ class PostStudentURLViewController: UIViewController, MKMapViewDelegate, UITextF
         if url == "" {
             self.displayAlert("Invalid URL", message: "Oops, you haven't entered your URL yet", actionPrompt: "OK", actionHandler: { () -> Void in
                 txtUrl.becomeFirstResponder()
+            })
+        } else {
+            
+            myLocation.mediaURL = url
+            
+            ParseClient.sharedInstance().postStudentLocation(myLocation, completionHandler: { (success, error) -> Void in
+                if let error = error {
+                    
+                    self.displayAlert("Post Location Failed", message: "Oops, we can't post your location at this time. Please try again in a few minutes", actionPrompt: "OK", actionHandler: nil)
+                    
+                } else {
+                    
+                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                        
+                        // We empty the studentLocations in the appDelegate to force the MapView to reload the studentLocations
+                        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                        appDelegate.studentLocations = []
+                        
+                        self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+                    }
+                    
+                }
             })
         }
     }

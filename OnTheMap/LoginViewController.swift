@@ -152,14 +152,6 @@ class LoginViewController: UIViewController {
 
     @IBAction func processLogin(sender: BorderedButton) {
         
-        // DEBUG - delete when completed
-        // Open the tabbed view controller
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("MainNavigationController") as! UINavigationController
-            
-            self.presentViewController(controller, animated: true, completion: nil)
-        })
-        
         
         // Clear debug text and show the login button as disabled
         self.view.endEditing(true)

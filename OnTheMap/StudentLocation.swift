@@ -18,6 +18,14 @@ struct StudentLocation {
     var mediaURL: String? = nil
     var latitude: Double? = nil
     var longitude: Double? = nil
+    
+    init(uniqueKey: String, firstName: String, lastName: String) {
+        
+        self.uniqueKey = uniqueKey
+        self.firstName = firstName
+        self.lastName = lastName
+        
+    }
 
     init(dictionary: [String: AnyObject]) {
         

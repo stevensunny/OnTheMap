@@ -24,22 +24,26 @@ class StudentLocationMapViewController: UIViewController, MKMapViewDelegate {
 
         // Get student locations from AppDelegate
 		self.studentLocations = self.appDelegate.studentLocations
-
-		// In case of studentLocations from AppDelegate is empty, this means we haven't 
-        // load the studentLocations from Parse API yet, so we call loadStudentLocations -
-        // this will load the studentLocations, and generateMapAnnotations to populate the pins.
-		if self.studentLocations.count == 0 {
-            loadStudentLocations(completionHandler: { () -> Void in
-                self.generateMapAnnotations()
-            })
-		} else {
-            self.generateMapAnnotations()
-        }
         
     }
 
     override func viewWillAppear(animated: Bool) {
     	super.viewWillAppear(animated)
+        
+        // Get student locations from AppDelegate
+        self.studentLocations = self.appDelegate.studentLocations
+        
+        // In case of studentLocations from AppDelegate is empty, this means we haven't
+        // load the studentLocations from Parse API yet, so we call loadStudentLocations -
+        // this will load the studentLocations, and generateMapAnnotations to populate the pins.
+        if self.studentLocations.count == 0 {
+            loadStudentLocations(completionHandler: { () -> Void in
+                self.generateMapAnnotations()
+            })
+        } else {
+            self.generateMapAnnotations()
+        }
+        
     	configureUI()
     }
 
@@ -168,6 +172,7 @@ class StudentLocationMapViewController: UIViewController, MKMapViewDelegate {
                     self.loadStudentLocations( completionHandler: nil )
                 }
             } else {
+                
                 self.studentLocations = results
                 self.appDelegate.studentLocations = self.studentLocations
                 
@@ -182,34 +187,40 @@ class StudentLocationMapViewController: UIViewController, MKMapViewDelegate {
     Generate annotations in Map with the loaded student locations
     */
     func generateMapAnnotations() {
-        
-        // Remove all annotations
-        self.mapView.removeAnnotations(self.locationAnnotations)
-        
-        for studentLocation in self.studentLocations {
 
-			// Determine coordinate
-			let lat = CLLocationDegrees(studentLocation.latitude!)
-			let long = CLLocationDegrees(studentLocation.longitude!)
-			let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-			
-			// Get the firstname, lastname and media URL for display in annotation
-			let first = studentLocation.firstName!
-			let last = studentLocation.lastName!
-			let mediaURL = studentLocation.mediaURL!
-			
-			// Construct the annotation 
-			var annotation = MKPointAnnotation()
-			annotation.coordinate = coordinate
-			annotation.title = "\(first) \(last)"
-			annotation.subtitle = mediaURL
-			
-			self.locationAnnotations.append(annotation)
+        dispatch_async( dispatch_get_main_queue() ) {
+            
+            // Remove all annotations
+            self.mapView.removeAnnotations(self.locationAnnotations)
+            
+            for studentLocation in self.studentLocations {
+                
+                // Determine coordinate
+                let lat = CLLocationDegrees(studentLocation.latitude!)
+                let long = CLLocationDegrees(studentLocation.longitude!)
+                let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                
+                // Get the firstname, lastname and media URL for display in annotation
+                let first = studentLocation.firstName!
+                let last = studentLocation.lastName!
+                let mediaURL = studentLocation.mediaURL!
+                
+                // Construct the annotation
+                var annotation = MKPointAnnotation()
+                annotation.coordinate = coordinate
+                annotation.title = "\(first) \(last)"
+                annotation.subtitle = mediaURL
+                
+                self.locationAnnotations.append(annotation)
+                
+            }
+            
+            // Add annotations to map
+            self.mapView.addAnnotations(self.locationAnnotations)
+            
+        }
 
-		}
 
-		// Add annotations to map
-		self.mapView.addAnnotations(self.locationAnnotations)
     }
 
 }

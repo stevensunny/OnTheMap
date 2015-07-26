@@ -33,5 +33,8 @@ extension ParseClient {
         static let MediaURL = "mediaURL"
         static let Latitude = "latitude"
         static let Longitude = "longitude"
+
+        // Post StudentLocation
+        static let CreatedAt = "createdAt"
     }
 }
