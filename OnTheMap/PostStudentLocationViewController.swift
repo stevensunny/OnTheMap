@@ -108,8 +108,14 @@ class PostStudentLocationViewController: UIViewController, UITextFieldDelegate {
                     self.txtAddress.becomeFirstResponder()
                 })
         } else {
+            
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            
             var geocoder = CLGeocoder()
             geocoder.geocodeAddressString(address, completionHandler: {(placemarks: [AnyObject]!, error: NSError!) -> Void in
+                
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                
                 if let placemark = placemarks?[0] as? CLPlacemark {
                     let postStudentUrlViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostStudentURLViewController") as! PostStudentURLViewController
                     
