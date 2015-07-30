@@ -70,9 +70,18 @@ extension ParseClient {
                 
                 if let results = result.valueForKey( ParseClient.JSONResponseKey.Wrapper ) as? [[String: AnyObject]] {
                     
-                    // Success, return the student locations array
-                    var locations = StudentLocation.studentLocationsFromResult( results )
-                    completionHandler( success: true, objectId: locations[0].objectId, error: nil )
+                    if results.count > 0 {
+                        
+                        // Success, return the student locations array
+                        var locations = StudentLocation.studentLocationsFromResult( results )
+                        completionHandler( success: true, objectId: locations[0].objectId, error: nil )
+                        
+                    } else {
+                        
+                        // No results
+                        completionHandler( success: false, objectId: nil, error: NSError(domain: "getMyLocationObjectId results", code: 0, userInfo: [NSLocalizedDescriptionKey: "Empty results"]) )
+                    }
+                    
                     
                 } else {
                     
@@ -95,6 +104,10 @@ extension ParseClient {
     */
 	func postStudentLocation( studentLocation: StudentLocation, completionHandler: (success: Bool, error: NSError? ) -> Void ) {
 
+        // In here, we want to query the current user's StudentLocation if it exists. 
+        // Then we want to update the StudentLocation with a new entry instead of creating
+        // a new one, this way we don't flood the API with the same entries from 1 user.
+        
         self.getMyLocationObjectId( studentLocation.uniqueKey, completionHandler: { (success, objectId, error) -> Void in
             
             var jsonBody: [String: AnyObject] = [
@@ -107,16 +120,25 @@ extension ParseClient {
                 "longitude": studentLocation.longitude!
             ]
             
-            var httpMethod: String = "POST"
-            var mutableMethod = Methods.StudentLocation
-            
-            if let objectId = objectId {
+            var httpMethod: String? = nil
+            var mutableMethod: String? = nil
+
+            if let error = error {
+                
+                // In case of error, we can treat this as if the user hasn't posted anything before and make a POST request
+                httpMethod = "POST"
+                mutableMethod = Methods.StudentLocation
+                
+            } else {
+                
                 httpMethod = "PUT"
-                mutableMethod = "\(mutableMethod)/\(objectId)"
+                mutableMethod = "\(Methods.StudentLocation)/\(objectId!)"
+                
             }
             
-            self.taskForMethod( httpMethod: httpMethod, method: mutableMethod, jsonBody: jsonBody ) { (result, error) -> Void in
+            self.taskForMethod( httpMethod: httpMethod!, method: mutableMethod!, jsonBody: jsonBody ) { (result, error) -> Void in
                 
+                dump( result )
                 if let error = error {
                     
                     completionHandler(success: false, error: error)
