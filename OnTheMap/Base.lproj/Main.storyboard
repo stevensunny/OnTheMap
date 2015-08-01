@@ -108,6 +108,9 @@
                                 <state key="normal" title="Cancel">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="337" y="20" width="47" height="30"/>
+                                </variation>
                                 <connections>
                                     <action selector="processCancel:" destination="8bX-GX-auz" eventType="touchUpInside" id="wUt-o7-1Py"/>
                                 </connections>
@@ -129,7 +132,8 @@
                                         <exclude reference="LND-Gb-YaT"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact">
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="125" y="528" width="150" height="44"/>
                                     <mask key="constraints">
                                         <include reference="LND-Gb-YaT"/>
                                     </mask>
@@ -146,6 +150,9 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <variation key="widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="82" y="25" width="236" height="20"/>
+                                        </variation>
                                         <connections>
                                             <outlet property="delegate" destination="8bX-GX-auz" id="pVV-XT-b5n"/>
                                         </connections>
@@ -268,6 +275,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="337" y="20" width="47" height="30"/>
+                                </variation>
                                 <connections>
                                     <action selector="processCancel:" destination="8Qv-Au-cHx" eventType="touchUpInside" id="9KQ-w9-c45"/>
                                 </connections>
@@ -291,7 +301,8 @@
                                         <exclude reference="pJY-Is-nSp"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact">
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="156" y="521" width="88" height="44"/>
                                     <mask key="constraints">
                                         <include reference="dqh-rj-fdo"/>
                                         <include reference="pJY-Is-nSp"/>
@@ -306,6 +317,9 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="96" y="55" width="209" height="20"/>
+                                </variation>
                                 <connections>
                                     <outlet property="delegate" destination="8Qv-Au-cHx" id="XOb-zd-XQB"/>
                                 </connections>
@@ -329,7 +343,8 @@
                                         <exclude reference="byz-mw-Rre"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact">
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="137" y="95" width="127" height="44"/>
                                     <mask key="constraints">
                                         <include reference="Qt4-sY-16a"/>
                                         <include reference="byz-mw-Rre"/>
@@ -561,21 +576,13 @@
                                     <action selector="udacitySignUp:" destination="Gaa-t2-2vV" eventType="touchUpInside" id="VJU-L8-bqU"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fb-O7-u5Y" userLabel="Debug">
-                                <rect key="frame" x="301" y="496" width="0.0" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="highlightedColor" red="0.92156862750000001" green="0.40000000000000002" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
-                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="udacity" translatesAutoresizingMaskIntoConstraints="NO" id="tyF-r7-l7v">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.5607843137254902" blue="0.035294117647058823" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="5fb-O7-u5Y" firstAttribute="top" secondItem="9Ac-Vw-yZR" secondAttribute="bottom" constant="65" id="0vt-Nr-bVh"/>
                             <constraint firstAttribute="centerX" secondItem="b6F-zb-bWZ" secondAttribute="centerX" id="1r7-HM-3e2"/>
-                            <constraint firstAttribute="centerX" secondItem="5fb-O7-u5Y" secondAttribute="centerX" id="4tC-yV-okA"/>
                             <constraint firstItem="PPS-ov-hBh" firstAttribute="top" secondItem="pD4-Xf-hm4" secondAttribute="bottom" constant="170" id="DKm-Jr-mcu"/>
                             <constraint firstAttribute="centerX" secondItem="9Hw-So-exR" secondAttribute="centerX" id="E3e-VT-AZc"/>
                             <constraint firstItem="b6F-zb-bWZ" firstAttribute="top" secondItem="PPS-ov-hBh" secondAttribute="bottom" constant="20" id="GaD-9e-3hE"/>
@@ -588,7 +595,6 @@
                             <constraint firstItem="djY-rU-T2i" firstAttribute="width" secondItem="b6F-zb-bWZ" secondAttribute="width" id="eHh-by-yMP"/>
                             <constraint firstItem="9Hw-So-exR" firstAttribute="width" secondItem="djY-rU-T2i" secondAttribute="width" id="oSo-FC-h6E"/>
                             <constraint firstItem="tyF-r7-l7v" firstAttribute="top" secondItem="pD4-Xf-hm4" secondAttribute="bottom" constant="20" id="rDp-cc-Slg"/>
-                            <constraint firstItem="5fb-O7-u5Y" firstAttribute="top" secondItem="9Hw-So-exR" secondAttribute="bottom" constant="117" id="unc-O2-xF8"/>
                             <constraint firstAttribute="centerX" secondItem="PPS-ov-hBh" secondAttribute="centerX" id="vGU-hX-AGj"/>
                             <constraint firstAttribute="centerX" secondItem="tyF-r7-l7v" secondAttribute="centerX" id="yKI-WX-kYy"/>
                             <constraint firstAttribute="centerX" secondItem="djY-rU-T2i" secondAttribute="centerX" id="z1I-TC-0Hw"/>
@@ -601,8 +607,6 @@
                                 <exclude reference="rDp-cc-Slg"/>
                                 <exclude reference="yKI-WX-kYy"/>
                                 <exclude reference="c4v-7f-daU"/>
-                                <exclude reference="0vt-Nr-bVh"/>
-                                <exclude reference="unc-O2-xF8"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -613,13 +617,10 @@
                                 <include reference="rDp-cc-Slg"/>
                                 <include reference="yKI-WX-kYy"/>
                                 <include reference="c4v-7f-daU"/>
-                                <include reference="0vt-Nr-bVh"/>
-                                <exclude reference="unc-O2-xF8"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="debugLabel" destination="5fb-O7-u5Y" id="pef-AV-AQk"/>
                         <outlet property="emailTextfield" destination="b6F-zb-bWZ" id="Wut-dc-uXS"/>
                         <outlet property="loginButton" destination="9Hw-So-exR" id="lnO-e6-jRa"/>
                         <outlet property="passwordTextfield" destination="djY-rU-T2i" id="GiW-9n-env"/>

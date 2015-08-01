@@ -10,7 +10,6 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var passwordTextfield: UITextField!
@@ -44,7 +43,6 @@ class LoginViewController: UIViewController {
         self.setDefaultBackgroundStyle()
         
         self.setDefaultLabelStyle(titleLabel, fontSize: 24.0)
-        self.setDefaultLabelStyle(debugLabel)
         
         self.setDefaultTextfieldStyle(emailTextfield)
         self.setDefaultTextfieldStyle(passwordTextfield)
@@ -115,23 +113,15 @@ class LoginViewController: UIViewController {
     }
 
     /**
-    Display error message in debug label
+    Display error message in Alert View
     
     :param: errorString
     */
-    func displayError(errorString: String?) {
-        dispatch_async(dispatch_get_main_queue(), {
-            if let errorString = errorString {
-                self.debugLabel.text = errorString
-            }
-        })
-    }
-    
-    /**
-    Clear debug text
-    */
-    func clearDebugLabel() {
-        self.displayError("")
+    func displayError(errorString: String) {
+        var alert = UIAlertController(title: "Login Failed", message: errorString, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alert.addAction( UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     /**
@@ -151,9 +141,8 @@ class LoginViewController: UIViewController {
     @IBAction func processLogin(sender: BorderedButton) {
         
         
-        // Clear debug text and show the login button as disabled
+        // Show the login button as disabled
         self.view.endEditing(true)
-        clearDebugLabel()
         setLoginButtonEnabledState(false)
         
         let email = self.emailTextfield.text
@@ -173,7 +162,7 @@ class LoginViewController: UIViewController {
             
             if !success {
                 
-                self.displayError(errorString)
+                self.displayError(errorString!)
                 self.setLoginButtonEnabledState(true)
                 
             } else {
