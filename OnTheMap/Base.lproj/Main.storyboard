@@ -410,6 +410,7 @@
                     </view>
                     <connections>
                         <outlet property="btnPreview" destination="pO4-3t-ViF" id="pTx-pq-HOL"/>
+                        <outlet property="btnSubmit" destination="x9w-vb-8RL" id="XNe-7g-15z"/>
                         <outlet property="mapView" destination="bk7-Va-J2N" id="Z7q-PK-8Zt"/>
                         <outlet property="txtUrl" destination="6Ix-Tf-28e" id="wMG-oO-evq"/>
                     </connections>

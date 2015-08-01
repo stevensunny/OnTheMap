@@ -14,7 +14,10 @@ class PostStudentURLViewController: UIViewController, MKMapViewDelegate, UITextF
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var btnPreview: UIButton!
+    @IBOutlet weak var btnSubmit: UIButton!
     @IBOutlet weak var txtUrl: UITextField!
+    
+    var tapRecognizer: UITapGestureRecognizer? = nil
     
     var placemark: MKPlacemark? = nil
     let regionRadius: CLLocationDistance = 100000
@@ -35,6 +38,19 @@ class PostStudentURLViewController: UIViewController, MKMapViewDelegate, UITextF
         btnPreview.alpha = 0.0
         
         self.mapView.selectAnnotation(placemark, animated: true)
+        
+        // Single tap gesture recognizer - to dismiss keyboard when user tapped the screen
+        tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+        tapRecognizer?.numberOfTapsRequired = 1
+        
+        self.addKeyboardDismissRecognizer()
+        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.removeKeyboardDismissRecognizer()
     }
     
     // MARK: Helper Methods
@@ -174,12 +190,35 @@ class PostStudentURLViewController: UIViewController, MKMapViewDelegate, UITextF
         }
     }
     
+    // MARK: Keyboard Behavior
+    
+    func addKeyboardDismissRecognizer() {
+        self.view.addGestureRecognizer(tapRecognizer!)
+    }
+    
+    func removeKeyboardDismissRecognizer() {
+        self.view.removeGestureRecognizer(tapRecognizer!)
+    }
+    
+    func handleSingleTap(recognizer: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+
+    
     // MARK: TextField Delegate Methods
+    
+    /**
+    Clear the textfield and hide preview button
+    */
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        btnPreview.alpha = 0.0
         txtUrl.text = ""
         return true
     }
     
+    /**
+    Display the preview button if the text have at least 3 characters
+    */
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         let old_url = textField.text as NSString
@@ -189,6 +228,14 @@ class PostStudentURLViewController: UIViewController, MKMapViewDelegate, UITextF
         } else {
             btnPreview.alpha = 0.0
         }
+        return true
+    }
+    
+    /**
+    Dismiss keyboard
+    */
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
         return true
     }
 }
