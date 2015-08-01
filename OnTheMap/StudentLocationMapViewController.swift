@@ -13,7 +13,6 @@ class StudentLocationMapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
 
-    var studentLocations: [StudentLocation]!
     var locationAnnotations: [MKPointAnnotation] = [MKPointAnnotation]()
     var appDelegate: AppDelegate!
 
@@ -21,22 +20,16 @@ class StudentLocationMapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
 
         self.appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-
-        // Get student locations from AppDelegate
-		self.studentLocations = self.appDelegate.studentLocations
         
     }
 
     override func viewWillAppear(animated: Bool) {
     	super.viewWillAppear(animated)
         
-        // Get student locations from AppDelegate
-        self.studentLocations = self.appDelegate.studentLocations
-        
         // In case of studentLocations from AppDelegate is empty, this means we haven't
         // load the studentLocations from Parse API yet, so we call loadStudentLocations -
         // this will load the studentLocations, and generateMapAnnotations to populate the pins.
-        if self.studentLocations.count == 0 {
+        if appDelegate.studentLocations.count == 0 {
             loadStudentLocations(completionHandler: { () -> Void in
                 self.generateMapAnnotations()
             })
@@ -172,9 +165,8 @@ class StudentLocationMapViewController: UIViewController, MKMapViewDelegate {
                     self.loadStudentLocations( completionHandler: nil )
                 }
             } else {
-                
-                self.studentLocations = results
-                self.appDelegate.studentLocations = self.studentLocations
+
+                self.appDelegate.studentLocations = results!
                 
                 if let handler: () -> Void = completionHandler {
                     handler()
@@ -193,7 +185,7 @@ class StudentLocationMapViewController: UIViewController, MKMapViewDelegate {
             // Remove all annotations
             self.mapView.removeAnnotations(self.locationAnnotations)
             
-            for studentLocation in self.studentLocations {
+            for studentLocation in self.appDelegate.studentLocations {
                 
                 // Determine coordinate
                 let lat = CLLocationDegrees(studentLocation.latitude!)

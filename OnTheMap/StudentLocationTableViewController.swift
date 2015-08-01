@@ -12,28 +12,21 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
 
     @IBOutlet weak var studentLocationTableView: UITableView!
 
-    var studentLocations: [StudentLocation]!
     var appDelegate: AppDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        
-        // Get student locations from AppDelegate
-        self.studentLocations = self.appDelegate.studentLocations
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Get student locations from AppDelegate
-        self.studentLocations = self.appDelegate.studentLocations
-        
         // In case of studentLocations from AppDelegate is empty, this means we haven't
         // load the studentLocations from Parse API yet, so we call loadStudentLocations -
         // this will load the studentLocations, and reloadTableViewData to reload the table
-        if self.studentLocations.count == 0 {
+        if appDelegate.studentLocations.count == 0 {
             loadStudentLocations(completionHandler: { () -> Void in
                 self.reloadTableViewData()
             })
@@ -128,7 +121,7 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
         var cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as! UITableViewCell
         
         // Set cell default
-        let item = studentLocations[indexPath.row]
+        let item = appDelegate.studentLocations[indexPath.row]
         cell.textLabel!.text = "\(item.firstName!) \(item.lastName!)"
         cell.detailTextLabel!.text = "\(item.mediaURL!)"
         
@@ -140,7 +133,7 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
     We want to opens up the MediaURL in browser
     */
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let item = studentLocations[indexPath.row]
+        let item = appDelegate.studentLocations[indexPath.row]
         
         let url: NSURL = self.buildCorrectUrl(item.mediaURL!)
         UIApplication.sharedApplication().openURL(url)
@@ -150,7 +143,7 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
     Table View number of rows
     */
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return studentLocations!.count;
+        return appDelegate.studentLocations.count;
     }
     
     /**
@@ -179,8 +172,7 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
                     self.loadStudentLocations( completionHandler: nil )
                 }
             } else {
-                self.studentLocations = results
-                self.appDelegate.studentLocations = self.studentLocations
+                self.appDelegate.studentLocations = results!
                 
                 if let handler: () -> Void = completionHandler {
                     handler()
