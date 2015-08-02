@@ -19,11 +19,12 @@ extension ParseClient {
 	func getStudentLocations( limit: Int, completionHandler: ( results: [StudentLocation]?, error: NSError? ) -> Void ) {
 
 		let parameters = [
-			"limit" : limit
+			"limit" : limit,
+            "order" : "-updatedAt"
 		]
 
 		// Make the GET request
-		taskForGETMethod( Methods.StudentLocation, parameters: parameters ) {
+		taskForGETMethod( Methods.StudentLocation, parameters: parameters as! [String : AnyObject] ) {
 			JSONResult, error in 
 
 			if let error = error {
